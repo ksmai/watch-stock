@@ -1,23 +1,26 @@
 'use strict';
-const compression = require('compression');
-const express     = require('express');
-const helmet      = require('helmet');
-const httpStatus  = require('http-status');
-const path        = require('path');
+const compression     = require('compression');
+const configWebSocket = require('./symbol-sync/websocket');
+const express         = require('express');
+const helmet          = require('helmet');
+const httpStatus      = require('http-status');
+const path            = require('path');
 
 const ASSETS_PATH = path.join(__dirname, '..', '..', 'assets');
 const BIN_PATH    = path.join(__dirname, '..', '..', 'bin');
-const DEBUG_PORT  = 3000;
-const PORT        = process.env.PORT || DEBUG_PORT;
+const DEV_PORT    = 3000;
+const PORT        = process.env.PORT || DEV_PORT;
 
-const app = express();
-app.use(helmet());
-app.use(compression());
-app.use(express.static(BIN_PATH));
-app.use(express.static(ASSETS_PATH));
-app.get('/*', displayHomepage);
-app.use(errorHandler);
-app.listen(PORT, displayServerDetails);
+const server = express().
+  use(helmet()).
+  use(compression()).
+  use(express.static(BIN_PATH)).
+  use(express.static(ASSETS_PATH)).
+  get('/*', displayHomepage).
+  use(errorHandler).
+  listen(PORT, displayServerDetails);
+
+configWebSocket(server);
 
 function displayHomepage(req, res) {
   res.sendFile('index.html', { root: BIN_PATH });
