@@ -26,24 +26,27 @@ function setupSocketConnection(wss) {
 
       switch(req.action) {
         case 'add':
-          symbols.
+          return symbols.
             add(req.symbol).
             then(function() {
               broadcast(wss);
+            }).
+            catch(function(err) {
+              ws.send(JSON.stringify(err));
             });
-          break;
-        
+
         case 'remove':
-          symbols.
+          return symbols.
             remove(req.symbol).
             then(function() {
               broadcast(wss);
             });
-          break;
 
         case 'list':
-          sendDataTo(ws);
-          break;
+          return sendDataTo(ws);
+
+        default:
+          return null;
       }
     });
   };

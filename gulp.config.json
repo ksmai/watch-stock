@@ -1,0 +1,11 @@
+{
+  "app": {
+    "src": "./src/server/app.js"
+  },
+  "scripts": {
+    "src": ["./src/**/*.js"]
+  },
+  "specs": {
+    "src": ["./src/**/*.spec.js"]
+  }
+}
