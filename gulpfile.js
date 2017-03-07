@@ -9,6 +9,8 @@ gulp.task('test', test);
 gulp.task('dev', dev);
 
 //////////////////////////////////////////////////
+const GREEN = '\x1b[32m';
+const RESET = '\x1b[0m';
 
 function test() {
   return gulp.
@@ -24,11 +26,6 @@ function lint() {
     pipe(eslint.failAfterError());
 }
 
-function myPID(done) {
-  console.info(`Gulp PID: ${process.pid}`);
-  done();
-}
-
 function dev() {
   const stream = nodemon({
     script: paths.app.src,
@@ -36,7 +33,7 @@ function dev() {
   });
 
   stream.
-    on('restart', gulp.parallel('lint', 'test', myPID)).
+    on('restart', gulp.parallel('lint', 'test')).
     on('crash', function() {
       console.log('Server crashed');
       stream.emit('restart', 10);

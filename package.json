@@ -39,7 +39,8 @@
     "karma-chrome-launcher": "2.0.0",
     "karma-firefox-launcher": "1.0.1",
     "karma-jasmine": "1.1.0",
-    "protractor": "5.1.1"
+    "protractor": "5.1.1",
+    "supertest": "3.0.0"
   },
   "engines": {
     "node": "6.9.2"

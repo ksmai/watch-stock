@@ -18,11 +18,18 @@ function isValidSymbol(symbol) {
         parsedResult = [];
       }
 
-      const isValid = parsedResult.some((res) => res.symbol === symbol);
+      const isValid = parsedResult.some(
+        (res) => res.symbol === symbol && res.type.match(/^s$/i));
+
       if(isValid) {
+        const match = parsedResult.filter(
+          (res) => res.symbol === symbol && res.type.match(/^s$/i))[0];
+
         resolve({
           valid: true,
-          symbol
+          symbol: match.symbol,
+          name: match.name,
+          exchange: match.exchDisp
         });
       } else {
         const alternatives = parsedResult.
