@@ -1,11 +1,11 @@
 {
-  "app": {
-    "src": "./src/server/app.js"
-  },
-  "scripts": {
-    "src": ["./src/**/*.js"]
-  },
-  "specs": {
-    "src": ["./src/**/*.spec.js"]
-  }
+  "app": "./src/server/app.js",
+  "bin": "./bin",
+  "client": "./src/client",
+  "index": "./src/client/index.html",
+  "js": ["./src/client/**/*.js"],
+  "scss": "./src/client/app.scss",
+  "scripts": ["./src/**/*.js"],
+  "specs": ["./src/**/*.spec.js"],
+  "templates": ["./src/client/**/*.template.html"]
 }
