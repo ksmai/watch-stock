@@ -3,9 +3,16 @@
   "bin": "./bin",
   "client": "./src/client",
   "index": "./src/client/index.html",
-  "js": ["./src/client/**/*.js"],
+  "js": ["./src/client/**/*.module.js", "./src/client/**/*.js"],
   "scss": "./src/client/app.scss",
-  "scripts": ["./src/**/*.js"],
-  "specs": ["./src/**/*.spec.js"],
-  "templates": ["./src/client/**/*.template.html"]
+  "scssAll": "./src/client/**/*.scss",
+  "scripts": "./src/**/*.js",
+  "server": "src/server/**/*.js",
+  "specs": "./src/server/**/*.spec.js",
+  "templates": "./src/client/**/*.template.html",
+  "templatesJS": "./bin/templates.js",
+  "vendors": [
+    "./bower_components/angular/angular.min.js",
+    "./bower_components/angular-animate/angular-animate.min.js"
+  ]
 }

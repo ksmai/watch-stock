@@ -1,0 +1,9 @@
+{
+  "name": "watch-stock",
+  "private": true,
+  "dependencies": {
+    "angular": "1.6.2",
+    "angular-mocks": "1.6.2",
+    "angular-animate": "1.6.2"
+  }
+}

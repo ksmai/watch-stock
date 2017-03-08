@@ -4,18 +4,19 @@ const express = require('express');
 const dataStore = require('./symbol-store');
 const WebSocket = require('ws');
 
-const TEST_PORT = 3001;
-const URL = `ws://localhost:${TEST_PORT}`;
+let URL = 'ws://localhost:';
 
 describe('configWebSocket', function() {
   let server, client, wss;
   const testData = [];
 
   beforeAll(function(done) {
-    server = express().listen(TEST_PORT);
-    wss = configWebSocket(server);
-    client = new WebSocket(URL);
-    client.on('message', done);
+    server = express().listen(0, function() {
+      URL += server.address().port;
+      wss = configWebSocket(server);
+      client = new WebSocket(URL);
+      client.on('message', done);
+    });
   });
 
   afterAll(function(done) {

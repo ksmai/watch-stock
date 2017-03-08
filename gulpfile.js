@@ -1,5 +1,6 @@
 const autoprefixer  = require('gulp-autoprefixer');
 const babel         = require('gulp-babel');
+const browserSync   = require('browser-sync').create();
 const cleanCSS      = require('gulp-clean-css');
 const concat        = require('gulp-concat');
 const del           = require('del');
@@ -13,18 +14,24 @@ const sass          = require('gulp-sass');
 const templateCache = require('gulp-angular-templatecache');
 const uglify        = require('gulp-uglify');
 
-gulp.task('test', test);
+const build = gulp.series(clean,
+  gulp.parallel(index, scss, vendors, gulp.series(templates, js)));
+gulp.task('build', build);
+gulp.task('testNode', testNode);
 gulp.task('lint', lint);
 gulp.task('clean', clean);
 gulp.task('index', index);
 gulp.task('scss', scss);
 gulp.task('templates', templates);
 gulp.task('js', js);
+gulp.task('vendors', vendors);
 gulp.task('dev', dev);
+
+gulp.task('default', gulp.series(build, dev));
 
 //////////////////////////////////////////////////
 
-function test() {
+function testNode() {
   return gulp.
     src(paths.specs).
     pipe(jasmine());
@@ -58,7 +65,7 @@ function templates() {
       root: '/',
       module: 'app'
     })).
-    pipe(gulp.dest(paths.client));
+    pipe(gulp.dest(paths.bin));
 }
 
 function scss() {
@@ -76,7 +83,7 @@ function scss() {
 
 function js() {
   return gulp.
-    src(paths.js).
+    src(paths.js.concat([paths.templatesJS])).
     pipe(concat('app.min.js')).
     pipe(babel({
       presets: ['es2015']
@@ -85,14 +92,43 @@ function js() {
     pipe(gulp.dest(paths.bin));
 }
 
+function vendors() {
+  return gulp.
+    src(paths.vendors).
+    pipe(concat('vendors.min.js')).
+    pipe(gulp.dest(paths.bin));
+}
+
+function reload(done) {
+  browserSync.reload();
+  done();
+}
+
 function dev() {
   const stream = nodemon({
     script: paths.app,
-    ext: 'js'
+    ext: 'js',
+    watch: [paths.server]
   });
 
+  browserSync.init({
+    proxy: `localhost:${process.env.PORT || 3000}`,
+    port: 7000,
+    ui: {
+      port: 7001
+    }
+  });
+
+  gulp.watch([
+    paths.templates,
+    paths.index,
+    paths.scssAll,
+    paths.js
+  ], gulp.series('build', reload));
+
   stream.
-    on('restart', gulp.parallel('lint', 'test')).
+    on('start', gulp.series(reload)).
+    on('restart', gulp.parallel('lint', 'testNode')).
     on('crash', function() {
       console.log('Server crashed');
       stream.emit('restart', 10);
