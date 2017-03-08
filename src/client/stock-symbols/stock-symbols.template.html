@@ -1,0 +1,17 @@
+<section>
+  <section data-ng-repeat="symbol in vm.symbolSync.symbols">
+    {{symbol}}
+    <button data-ng-click="vm.remove(symbol)">Remove {{symbol}}</button>
+  </section>
+  <section>
+    <form data-ng-submit="vm.add()">
+      <input type="text" name="symbol" data-ng-model="vm.newSymbol" autofocus required>
+      <button type="submit">Add</button>
+      {{vm.symbolSync.error.message}}
+      <span data-ng-show="vm.symbolSync.error.alternatives && vm.symbolSync.error.alternatives.length">
+        Do you mean {{vm.symbolSync.error.alternatives.join(', ')}}?
+      </span>
+      {{vm.err}}
+    </form>
+  </section>
+</section>

@@ -38,7 +38,8 @@ function isValidSymbol(symbol) {
 
         reject({
           valid: false,
-          alternatives
+          alternatives,
+          symbol
         });
       }
     });
