@@ -13,6 +13,11 @@
     const vm = this;
 
     vm.quoteStore = quoteStore;
+    vm.hasData = hasData;
+
+    function hasData(obj) {
+      return !angular.equals({}, obj);
+    }
 
   }
 }());

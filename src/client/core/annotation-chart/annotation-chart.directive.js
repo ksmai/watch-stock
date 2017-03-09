@@ -47,7 +47,7 @@
           AnnotationChart(chartDiv[0]);
 
         const options = {
-          displayAnnotations: true
+          fill: 10
         };
 
         chart.draw(data, options);

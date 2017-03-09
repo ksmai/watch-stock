@@ -59,6 +59,7 @@
         data = JSON.parse(msg.data);
       } catch(e) {
         symbolSync.error.message = e.message;
+        data = {};
       }
 
       if(Array.isArray(data)) {
