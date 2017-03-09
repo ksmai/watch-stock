@@ -1,4 +1,6 @@
 (function() {
   'use strict';
-  angular.module('stockChart', []);
+  angular.module('stockChart', [
+    'core.quoteStore'
+  ]);
 }());

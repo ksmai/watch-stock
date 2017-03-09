@@ -119,12 +119,11 @@ function dev() {
     }
   });
 
-  gulp.watch([
+  gulp.watch(paths.js.concat([
     paths.templates,
     paths.index,
     paths.scssAll,
-    paths.js
-  ], gulp.series('build', reload));
+  ]), gulp.parallel('lint', gulp.series('build', reload)));
 
   stream.
     on('start', gulp.series(reload)).

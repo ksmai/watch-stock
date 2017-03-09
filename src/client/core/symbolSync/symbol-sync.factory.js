@@ -4,8 +4,8 @@
     module('core.symbolSync').
     factory('symbolSync', symbolSyncFactory);
 
-  symbolSyncFactory.$inject = ['ws', '$rootScope'];
-  function symbolSyncFactory(ws, $rootScope) {
+  symbolSyncFactory.$inject = ['quoteStore', 'ws', '$rootScope'];
+  function symbolSyncFactory(quoteStore, ws, $rootScope) {
     const symbolSync = {
       add,
       remove,
@@ -63,6 +63,7 @@
 
       if(Array.isArray(data)) {
         symbolSync.symbols = data;
+        quoteStore.update(data);
       } else if(data.hasOwnProperty('valid') && !data.valid) {
         symbolSync.error.message = `Symbol not found: ${data.symbol}`;
         symbolSync.error.alternatives = data.alternatives;

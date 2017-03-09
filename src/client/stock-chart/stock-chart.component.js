@@ -8,9 +8,11 @@
       templateUrl: '/stock-chart/stock-chart.template.html'
     });
 
-  StockChartController.$inject = [];
-  function StockChartController() {
+  StockChartController.$inject = ['quoteStore'];
+  function StockChartController(quoteStore) {
     const vm = this;
+
+    vm.quoteStore = quoteStore;
 
   }
 }());
