@@ -4,8 +4,8 @@
     module('core.quoteStore').
     factory('quoteStore', quoteStoreFactory);
 
-  quoteStoreFactory.$inject = ['$http'];
-  function quoteStoreFactory($http) {
+  quoteStoreFactory.$inject = ['$http', '$window'];
+  function quoteStoreFactory($http, $window) {
     const quoteStore = {
       data: {},
       update
@@ -16,20 +16,50 @@
     return quoteStore;
     //////////////////////////////////////////////////
 
-    function update(inputSymbols) {
+    // return a Promise that rejects if no data for the symbol
+    function update(inputSymbols, retry = false) {
       const symbols = transformInput(inputSymbols);
-      const newData = {};
-      quoteStore.data = newData;
+      let newData;
+
+      if(retry) {
+        newData = quoteStore.data;
+      } else {
+        newData = {};
+        quoteStore.data = newData;
+      }
       checkCache(symbols, newData);
 
       if(symbols.length === 0) {
-        return;
+        return $window.Promise.resolve();
       }
 
-      $http.
+      return $http.
         get(`/api/v1/quotes/${symbols.join(',')}`).
-        then(successHandler).
-        catch(errorHandler);
+        then(function successHandler(res) {
+          res.data.forEach(stock => {
+            newData[stock.symbol] = stock.prices;
+            cache[stock.symbol] = {
+              prices: stock.prices,
+              date: Date.now()
+            };
+          });
+
+          return res;
+        }).
+        catch(function errorHandler(res) {
+          const HTTP_STATUS_BAD_REQUEST = 400;
+          const badRequest = res.status === HTTP_STATUS_BAD_REQUEST;
+          const shouldRetry = badRequest && symbols.length > 1;
+
+          if(shouldRetry) {
+            const promises = symbols.map((symbol) => update(symbol, true));
+            return $window.Promise.all(promises);
+          } else if(badRequest) {
+            return $window.Promise.reject(symbols[0]);
+          }
+
+          return res;
+        });
 
       ////////////////////////////////////////////////////
       function transformInput(symbols) {
@@ -51,30 +81,6 @@
             symbols.splice(i, 1);
           }
         }
-      }
-
-      function successHandler(res) {
-        res.data.forEach(stock => {
-          newData[stock.symbol] = stock.prices;
-          cache[stock.symbol] = {
-            prices: stock.prices,
-            date: Date.now()
-          };
-        });
-
-        return res;
-      }
-
-      function errorHandler(res) {
-        const HTTP_STATUS_BAD_REQUEST = 400;
-        const shouldRetry = res.status === HTTP_STATUS_BAD_REQUEST &&
-          symbols.length > 1;
-
-        if(shouldRetry) {
-          symbols.forEach(update);
-        }
-
-        return res;
       }
     }
 

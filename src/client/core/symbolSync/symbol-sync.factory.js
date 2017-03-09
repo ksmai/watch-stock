@@ -63,7 +63,10 @@
 
       if(Array.isArray(data)) {
         symbolSync.symbols = data;
-        quoteStore.update(data);
+        quoteStore.update(data).
+          catch(function(invalidSymbol) {
+            symbolSync.remove(invalidSymbol);
+          });
       } else if(data.hasOwnProperty('valid') && !data.valid) {
         symbolSync.error.message = `Symbol not found: ${data.symbol}`;
         symbolSync.error.alternatives = data.alternatives;

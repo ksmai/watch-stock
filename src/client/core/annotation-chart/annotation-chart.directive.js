@@ -9,7 +9,7 @@
     return {
       restrict: 'EA',
       scope: {
-        data: '='
+        quotes: '='
       },
       link
     };
@@ -18,10 +18,9 @@
     function link(scope, elem, attr) {
       $window.google.charts.setOnLoadCallback(drawChart);
 
-      scope.$watch('data', function() {
+      scope.$watch('quotes', function() {
         $window.google.charts.setOnLoadCallback(drawChart);
-        console.log(scope.data);
-      });
+      }, true);
 
       const chartDiv = angular.
         element('<div>').
@@ -31,17 +30,16 @@
       elem.append(chartDiv);
 
       function drawChart() {
-        console.log('redrawing!');
         const data = new $window.google.visualization.DataTable();
-        const columns = Object.keys(scope.data).
-          filter((key) => scope.data.hasOwnProperty(key));
+        const columns = Object.keys(scope.quotes).
+          filter((key) => scope.quotes.hasOwnProperty(key));
 
         if(columns.length === 0) return;
 
         data.addColumn('date', 'Date');
         columns.forEach((col) => data.addColumn('number', col));
 
-        const dataByDate = groupByDate(scope.data);
+        const dataByDate = groupByDate(scope.quotes);
         const rows = createRows(dataByDate, columns);
         data.addRows(rows);
 
