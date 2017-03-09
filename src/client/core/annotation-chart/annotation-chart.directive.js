@@ -4,8 +4,8 @@
     module('core.annotationChart').
     directive('annotationChart', annotationChartFactory);
 
-  annotationChartFactory.$inject = ['$window'];
-  function annotationChartFactory($window) {
+  annotationChartFactory.$inject = ['$timeout', '$window'];
+  function annotationChartFactory($timeout, $window) {
     return {
       restrict: 'EA',
       scope: {
@@ -16,25 +16,31 @@
     //////////////////////////////////////////////////
 
     function link(scope, elem, attr) {
-      $window.google.charts.setOnLoadCallback(drawChart);
+      triggerDraw();
+      scope.$watch('quotes', triggerDraw, true);
+      angular.element($window).on('resize', triggerDraw);
 
-      scope.$watch('quotes', function() {
-        $window.google.charts.setOnLoadCallback(drawChart);
-      }, true);
-
-      const chartDiv = angular.
-        element('<div>').
-        attr('height', 'auto').
-        attr('width', '100%');
-
+      const chartDiv = angular.element('<div>');
+      chartDiv.addClass('stock-chart');
       elem.append(chartDiv);
+
+      let timer;
+      const delay = 20;
+      function triggerDraw() {
+        $timeout.cancel(timer);
+        timer = $timeout(function() {
+          $window.google.charts.setOnLoadCallback(drawChart);
+        }, delay);
+      }
 
       function drawChart() {
         const data = new $window.google.visualization.DataTable();
         const columns = Object.keys(scope.quotes).
           filter((key) => scope.quotes.hasOwnProperty(key));
 
-        if(columns.length === 0) return;
+        if(columns.length === 0) {
+          return;
+        }
 
         data.addColumn('date', 'Date');
         columns.forEach((col) => data.addColumn('number', col));

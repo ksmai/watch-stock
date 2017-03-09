@@ -1,7 +1,9 @@
-<section class=".stock-chart">
+<section>
   stock chart template (GOOGLE)
   <div data-ng-hide="vm.hasData(vm.quoteStore.data)">
     Add a symbol to get started
   </div>
-  <annotation-chart data-ng-show="vm.hasData(vm.quoteStore.data)" data-quotes="vm.quoteStore.data"></annotation-chart>
+  <div data-ng-show="vm.hasData(vm.quoteStore.data)">
+    <annotation-chart  data-quotes="vm.quoteStore.data"></annotation-chart>
+  </div>
 </section>
