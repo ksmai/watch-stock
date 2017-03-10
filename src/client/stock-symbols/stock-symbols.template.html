@@ -3,6 +3,7 @@
     <h3 class="symbol-ticker">{{symbol}}</h3>
     <button data-ng-click="vm.remove(symbol)" class="close-btn">&times;</button>
   </section>
+
   <section class="symbol-card symbol-card-with-form">
     <form class="symbol-form" data-ng-submit="vm.add()">
       <fieldset class="symbol-input">
@@ -13,12 +14,12 @@
       </fieldset>
     </form>
 
-    <section class="symbol-error">
+    <section class="symbol-error" data-ng-show="vm.symbolSync.error.message || vm.err">
       {{vm.symbolSync.error.message}}
       <span data-ng-show="vm.symbolSync.error.alternatives && vm.symbolSync.error.alternatives.length">
         Do you mean {{vm.symbolSync.error.alternatives.join(', ')}}?
       </span>
-      {{vm.err}}
+      <span>{{vm.err}}</span>
     </section>
   </section>
 </section>

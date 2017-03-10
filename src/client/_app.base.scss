@@ -3,6 +3,12 @@ body {
   color: $primary-color;
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 .app-container {
   margin: 20px auto;
   max-width: 90%;
