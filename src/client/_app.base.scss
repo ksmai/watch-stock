@@ -1,0 +1,15 @@
+body {
+  font: $primary-font;
+  color: $primary-color;
+}
+
+.app-container {
+  margin: 20px auto;
+  max-width: 90%;
+}
+
+@media(min-width: $mobile-break-point) {
+  .app-container {
+    max-width: 70%;
+  }
+}

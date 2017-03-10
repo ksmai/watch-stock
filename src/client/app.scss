@@ -1,0 +1,10 @@
+$primary-color: #616161;
+$primary-font-size: 16px;
+$primary-font: 400 #{$primary-font-size} / #{1.5}
+  'Roboto', Helvetica, Arial, sans-serif;
+$hover-color: #f06292;
+$mobile-break-point: 769px;
+
+@import 'app.reset';
+@import 'app.base';
+@import 'stock-symbols/stock-symbols';
