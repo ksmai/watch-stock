@@ -1,6 +1,9 @@
 .chart-info {
   text-align: center;
 }
+.stock-chart {
+  min-height: 300px;
+}
 
 /* remove unncessary zoom buttons */
 #_AnnotationChart_zoomControlContainer_1-hour,
@@ -13,17 +16,25 @@
 /* reset styles set by Google */
 .zoomControls {
   font-size: $primary-font-size !important;
+  color: $primary-color !important;
 }
 .zoomButton {
   margin: 5px 0 !important;
   padding: 5px 10px !important;
-  border-color: $primary-color !important;
+  border-color: lighten($primary-color, 20%) !important;
   border-style: solid !important;
   border-width: 1px 0 1px 1px !important;
   outline: 0 !important;
   background: none !important;
   font: $primary-font !important;
+  color: lighten($primary-color, 20%);
+  cursor: pointer;
+  transition: all .15s ease-in-out;
 
+  &:hover {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
 }
 #_AnnotationChart_zoomControlContainer_5-days {
   border-radius: 5px 0 0 5px !important;
@@ -36,6 +47,7 @@
   background-color: $secondary-background-color !important;
   border-radius: 10px !important;
   box-shadow: 0 5px 5px rgba(0, 0, 0, .15) !important;
+  overflow: hidden !important;
 }
 .border {
   border-radius: 10px !important;
@@ -43,3 +55,18 @@
     0 10px 10px rgba(0, 0, 0, .15),
     0 15px 15px rgba(0, 0, 0, .1) !important;
 }
+/*
+.legend {
+  font: $primary-font !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+
+  span:after,
+  span:before {
+    content: ' ';
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+  }
+}
+*/

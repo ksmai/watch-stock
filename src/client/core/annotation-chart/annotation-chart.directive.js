@@ -78,6 +78,7 @@
       function createRows(dataByDate, columns) {
         const rows = [];
         const dateRegex = /^(\d{4})-(\d{2})-(\d{2})$/;
+        const lastValue = {};
 
         for(const dateString in dataByDate) {
           if(dataByDate.hasOwnProperty(dateString)) {
@@ -86,7 +87,12 @@
               const row = [];
               row.push(new Date(+yyyy, +mm - 1, +dd));
               for(const column of columns) {
-                row.push(dataByDate[dateString][column]);
+                // fill the gaps in the graph due to differences
+                // in holidays across exchanges
+                const value = dataByDate[dateString][column] ||
+                  lastValue[column];
+                row.push(value);
+                lastValue[column] = value;
               }
               rows.push(row);
             } catch(e) {
