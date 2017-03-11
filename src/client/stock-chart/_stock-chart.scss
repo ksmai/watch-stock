@@ -1,0 +1,45 @@
+.chart-info {
+  text-align: center;
+}
+
+/* remove unncessary zoom buttons */
+#_AnnotationChart_zoomControlContainer_1-hour,
+#_AnnotationChart_zoomControlContainer_1-day,
+#_AnnotationChart_zoomControlContainer_1-week,
+#_AnnotationChart_zoomControlContainer_max {
+  display: none;
+}
+
+/* reset styles set by Google */
+.zoomControls {
+  font-size: $primary-font-size !important;
+}
+.zoomButton {
+  margin: 5px 0 !important;
+  padding: 5px 10px !important;
+  border-color: $primary-color !important;
+  border-style: solid !important;
+  border-width: 1px 0 1px 1px !important;
+  outline: 0 !important;
+  background: none !important;
+  font: $primary-font !important;
+
+}
+#_AnnotationChart_zoomControlContainer_5-days {
+  border-radius: 5px 0 0 5px !important;
+}
+#_AnnotationChart_zoomControlContainer_1-year {
+  border-right-width: 1px !important;
+  border-radius: 0 5px 5px 0 !important;
+}
+.chartControls {
+  background-color: $secondary-background-color !important;
+  border-radius: 10px !important;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .15) !important;
+}
+.border {
+  border-radius: 10px !important;
+  box-shadow:
+    0 10px 10px rgba(0, 0, 0, .15),
+    0 15px 15px rgba(0, 0, 0, .1) !important;
+}

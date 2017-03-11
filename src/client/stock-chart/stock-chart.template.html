@@ -1,9 +1,16 @@
-<section>
-  stock chart template (GOOGLE)
-  <div data-ng-hide="vm.hasData(vm.quoteStore.data)">
-    Add a symbol to get started
-  </div>
-  <div data-ng-show="vm.hasData(vm.quoteStore.data)">
-    <annotation-chart  data-quotes="vm.quoteStore.data"></annotation-chart>
-  </div>
-</section>
+<div class="row">
+  <section class="app-container">
+    <div data-ng-hide="vm.hasData(vm.quoteStore.data)">
+      <div data-ng-show="vm.symbolSync.symbols.length">
+        <h2 class="chart-info">Loading data...</h2>
+      </div>
+      <div data-ng-hide="vm.symbolSync.symbols.length">
+        <h2 class="chart-info">Stock Watcher</h2>
+      </div>
+    </div>
+
+    <div data-ng-show="vm.hasData(vm.quoteStore.data)">
+      <annotation-chart data-quotes="vm.quoteStore.data"></annotation-chart>
+    </div>
+  </section>
+</div>

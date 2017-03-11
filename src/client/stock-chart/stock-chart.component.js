@@ -8,11 +8,12 @@
       templateUrl: '/stock-chart/stock-chart.template.html'
     });
 
-  StockChartController.$inject = ['quoteStore'];
-  function StockChartController(quoteStore) {
+  StockChartController.$inject = ['quoteStore', 'symbolSync'];
+  function StockChartController(quoteStore, symbolSync) {
     const vm = this;
 
     vm.quoteStore = quoteStore;
+    vm.symbolSync = symbolSync;
     vm.hasData = hasData;
 
     function hasData(obj) {

@@ -14,6 +14,35 @@ body {
   max-width: 90%;
 }
 
+.row {
+  background-color: $primary-background-color;
+  padding: 20px 0;
+  box-shadow:
+    0 5px 5px rgba(0, 0, 0, .1),
+    0 10px 10px rgba(0, 0, 0, .1),
+    0 15px 15px rgba(0, 0, 0, .1);
+  margin-bottom: 30px;
+}
+
+a {
+  text-decoration: none;
+  transition: all .15s ease-in-out;
+
+  &,
+  &:visited {
+    color: $link-color;
+  }
+
+  &:hover {
+    color: darken($link-color, 10%);
+  }
+}
+
+h2,
+h3 {
+  font-size: $primary-font-size * 1.5;
+}
+
 @media(min-width: $mobile-break-point) {
   .app-container {
     max-width: 70%;

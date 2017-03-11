@@ -14,9 +14,16 @@
 
     vm.symbolSync = symbolSync;
     vm.remove = symbolSync.remove;
+    vm.correct = correct;
     vm.add = add;
     vm.newSymbol = '';
     vm.err = '';
+
+    function correct(alt) {
+      clearError();
+      vm.newSymbol = alt;
+      vm.add();
+    }
 
     function add() {
       clearError();
