@@ -13,11 +13,15 @@ const paths         = require('./gulp.config.json');
 const sass          = require('gulp-sass');
 const templateCache = require('gulp-angular-templatecache');
 const uglify        = require('gulp-uglify');
+const Karma         = require('karma').Server;
+const path          = require('path');
 
 const build = gulp.series(clean,
   gulp.parallel(index, scss, vendors, gulp.series(templates, js)));
 gulp.task('build', build);
 gulp.task('testNode', testNode);
+gulp.task('testKarma', testKarma);
+gulp.task('test', gulp.parallel(testNode, testKarma));
 gulp.task('lint', lint);
 gulp.task('clean', clean);
 gulp.task('index', index);
@@ -36,6 +40,14 @@ function testNode() {
     src(paths.specs).
     pipe(jasmine());
 }
+
+function testKarma(done) {
+  new Karma({
+    configFile: path.resolve(paths.karmaConfig),
+    singleRun: true
+  }, done).start();
+}
+
 
 function lint() {
   return gulp.
@@ -83,7 +95,7 @@ function scss() {
 
 function js() {
   return gulp.
-    src(paths.js.concat([paths.templatesJS])).
+    src(paths.js.concat([paths.templatesJS, '!' + paths.clientSpecs])).
     pipe(concat('app.min.js')).
     pipe(babel({
       presets: ['es2015']
@@ -123,7 +135,7 @@ function dev() {
     paths.templates,
     paths.index,
     paths.scssAll,
-  ]), gulp.parallel('lint', gulp.series('build', reload)));
+  ]), gulp.parallel('lint', gulp.series('build', reload, 'testKarma')));
 
   stream.
     on('start', gulp.series(reload)).

@@ -8,7 +8,7 @@
     "postinstall": "bower install && gulp build",
     "prestart": "npm install",
     "start": "node src/server/app.js",
-    "test": "gulp lint && gulp testNode"
+    "test": "gulp lint && gulp test"
   },
   "keywords": [],
   "author": "",

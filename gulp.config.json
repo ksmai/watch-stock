@@ -9,10 +9,19 @@
   "scripts": "./src/**/*.js",
   "server": "src/server/**/*.js",
   "specs": "./src/server/**/*.spec.js",
+  "clientSpecs": "./src/client/**/*.spec.js",
   "templates": "./src/client/**/*.template.html",
   "templatesJS": "./bin/templates.js",
   "vendors": [
     "./bower_components/angular/angular.min.js",
     "./bower_components/angular-animate/angular-animate.min.js"
+  ],
+  "karmaConfig": "karma.conf.js",
+  "karmaFiles": [
+    "./bower_components/angular/angular.min.js",
+    "./bower_components/angular-animate/angular-animate.min.js",
+    "./bower_components/angular-mocks/angular-mocks.js",
+    "./bin/app.min.js",
+    "./src/client/**/*.spec.js"
   ]
 }
