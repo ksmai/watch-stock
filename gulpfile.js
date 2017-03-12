@@ -21,7 +21,6 @@ const build = gulp.series(clean,
 gulp.task('build', build);
 gulp.task('testNode', testNode);
 gulp.task('testKarma', testKarma);
-gulp.task('test', gulp.parallel(testNode, testKarma));
 gulp.task('lint', lint);
 gulp.task('clean', clean);
 gulp.task('index', index);
@@ -30,6 +29,7 @@ gulp.task('templates', templates);
 gulp.task('js', js);
 gulp.task('vendors', vendors);
 gulp.task('dev', dev);
+gulp.task('test', gulp.parallel('lint', 'testNode', 'testKarma'));
 
 gulp.task('default', gulp.series(build, dev));
 

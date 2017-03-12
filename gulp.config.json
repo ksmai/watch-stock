@@ -18,6 +18,7 @@
   ],
   "karmaConfig": "karma.conf.js",
   "karmaFiles": [
+    "./loader.js",
     "./bower_components/angular/angular.min.js",
     "./bower_components/angular-animate/angular-animate.min.js",
     "./bower_components/angular-mocks/angular-mocks.js",
