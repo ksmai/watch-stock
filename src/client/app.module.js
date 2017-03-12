@@ -3,7 +3,7 @@
   angular.module('app', [
     'app.core',
     'ngAnimate',
-    'stockChart',
-    'stockSymbols'
+    'app.stockChart',
+    'app.stockSymbols'
   ]);
 }());

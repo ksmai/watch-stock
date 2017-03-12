@@ -1,6 +1,8 @@
 (function() {
   'use strict';
-  angular.module('stockSymbols', [
-    'core.symbolSync'
+  angular.module('app.stockSymbols', [
+    'core.annotationChart',
+    'core.symbolSync',
+    'core.quoteStore'
   ]);
 }());

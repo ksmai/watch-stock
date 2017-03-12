@@ -12,8 +12,8 @@
   display: flex;
   flex-basis: 100%;
   max-width: 100%;
-  justify-content: space-between;
   align-items: flex-start;
+  flex-direction: column;
   margin-bottom: 20px;
   box-shadow: 0 3px 5px 3px rgba(0, 0, 0, .2);
   transition: all .15s ease-in-out;
@@ -67,6 +67,41 @@
   }
   &:nth-child(8n+8) {
     background-color: #bbdefb;
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.card-body {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.good-news {
+  color: $success-color;
+  transition: all .15s ease-in-out;
+
+  &:before {
+    content: '+';
+  }
+
+  &:hover {
+    color: darken($success-color, 10%);
+  }
+}
+.bad-news {
+  color: $warning-color;
+  transition: all .15s ease-in-out;
+
+  &:hover {
+    color: darken($warning-color, 10%);
   }
 }
 
@@ -160,6 +195,24 @@
   color: $error-color;
   overflow: hidden;
   max-width: 100%;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, .5);
+
+  &.ng-hide-add,
+  &.ng-hide-remove {
+    transition: all .2s ease-in-out;
+  }
+
+  &.ng-hide {
+    transform: translateY(-100%);
+  }
 }
 
 @media(min-width: $mobile-break-point) {

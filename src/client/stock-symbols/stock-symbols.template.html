@@ -1,7 +1,12 @@
 <section class="app-container symbols">
   <section data-ng-repeat="symbol in vm.symbolSync.symbols" class="symbol-card animate-repeat">
-    <h3 class="symbol-ticker">{{symbol}}</h3>
-    <button data-ng-click="vm.remove(symbol)" class="close-btn">&times;</button>
+    <div class="card-header">
+      <h3 class="symbol-ticker">{{symbol}}</h3>
+      <button data-ng-click="vm.remove(symbol)" class="close-btn">&times;</button>
+    </div>
+    <div class="card-body" data-ng-show="vm.computeLastReturn(symbol).date" data-ng-class="{'good-news': vm.computeLastReturn(symbol).percent >= 0, 'bad-news': vm.computeLastReturn(symbol).percent < 0}" data-ng-click="vm.openModal(symbol)">
+      {{vm.computeLastReturn(symbol).percent}}% @{{vm.computeLastReturn(symbol).date}}
+    </div>
   </section>
 
   <section class="symbol-card symbol-card-with-form animate-repeat">
@@ -22,4 +27,10 @@
       </div>
     </section>
   </section>
+</section>
+
+<section data-ng-show="vm.showModal" class="modal animate-show" data-ng-click="vm.closeModal($event)">
+  <div class="app-container">
+    <annotation-chart data-quotes="vm.modalData.data"></annotation-chart>
+  </div>
 </section>

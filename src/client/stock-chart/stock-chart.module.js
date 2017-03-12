@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('stockChart', [
+  angular.module('app.stockChart', [
     'core.quoteStore',
     'core.symbolSync'
   ]);

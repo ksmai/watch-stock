@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular.
-    module('stockChart').
+    module('app.stockChart').
     component('stockChart', {
       controller: StockChartController,
       controllerAs: 'vm',
