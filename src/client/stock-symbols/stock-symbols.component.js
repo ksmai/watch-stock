@@ -27,7 +27,6 @@
     };
 
     function openModal(symbol) {
-      console.log('open it', symbol);
       vm.showModal = true;
       vm.modalData.data = {
         [symbol]: quoteStore.data[symbol]
