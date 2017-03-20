@@ -60,13 +60,21 @@
     0 10px 10px rgba(0, 0, 0, .15),
     0 15px 15px rgba(0, 0, 0, .1) !important;
 }
-/*
 .legend {
   font: $primary-font !important;
   display: flex !important;
   flex-wrap: wrap !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 90%;
+  transform: translate(-5%, -110%);
+  background-color: $secondary-background-color !important;
+  border-radius: 5px;
+  box-shadow:
+    0 5px 5px 5px rgba(0, 0, 0, .1),
+    0 10px 10px 10px rgba(0, 0, 0, .1);
 
-  span:after,
   span:before {
     content: ' ';
     display: inline-block;
@@ -74,4 +82,4 @@
     overflow: hidden;
   }
 }
-*/
+
