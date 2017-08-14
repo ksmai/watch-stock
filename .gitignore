@@ -5,6 +5,3 @@ bin/
 *.log
 symbols.json
 templates.js
-
-# google chart file for local testing
-loader.js

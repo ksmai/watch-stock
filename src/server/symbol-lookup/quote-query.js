@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 'use strict';
 const request = require('request');
 
@@ -21,7 +22,13 @@ function query(symbols) {
         try {
           data = JSON.parse(body).query.results.quote;
         } catch(e) {
-          return reject(e);
+          // generate fake data when error
+          // because yahoo API has stopped working since
+          // May 2017 and there are not much free alternatives
+          const fakeData = generateFakeQuotes();
+          setCache(symbol, fakeData);
+          resolve({ symbol, prices: fakeData });
+          return;
         }
         const filteredData = data.map((entry) => ({
           date: entry.Date,
@@ -81,4 +88,30 @@ function setCache(symbol, prices) {
     prices,
     cacheDate: Date.now()
   };
+}
+
+function generateFakeQuotes() {
+  const now = Date.now();
+  const ONE_DAY = 24 * 60 * 60 * 1000;
+  const ONE_YEAR = 365 * ONE_DAY;
+  const prices = [];
+  for(let time = now; time >= now - ONE_YEAR; time -= ONE_DAY) {
+    const date = new Date(time);
+    const yyyy = date.getFullYear();
+    const mm = date.getMonth();
+    const dd = date.getDate();
+    prices.push({
+      price: 100 * Math.random(),
+      date: `${pad(yyyy, 4)}-${pad(mm, 2)}-${pad(dd, 2)}`
+    });
+  }
+  return prices;
+}
+
+function pad(str, n = 2, symbol = '0') {
+  let paddedStr = String(str);
+  while(paddedStr.length < n) {
+    paddedStr = symbol + paddedStr;
+  }
+  return paddedStr;
 }

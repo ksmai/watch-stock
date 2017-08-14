@@ -23,7 +23,6 @@
     //////////////////////////////////////////////////
 
     function add(symbol) {
-      console.log(`Adding symbol: ${symbol}`);
       if(!symbol) {
         symbolSync.error.message = 'Please enter a symbol to add.';
         return;
@@ -40,7 +39,6 @@
     }
 
     function remove(symbol) {
-      console.log(`Removing symbol: ${symbol}`);
       if(!symbol) return;
 
       try {

@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "gulp",
     "postinstall": "bower install && gulp build",
-    "prestart": "npm install",
     "preprotractor": "webdriver-manager update",
     "protractor": "protractor protractor.conf.js",
     "start": "node src/server/app.js",
